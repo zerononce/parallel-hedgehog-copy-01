@@ -1,0 +1,193 @@
+backend:
+  name: git-gateway
+  branch: master
+media_folder: img
+public_folder: /img
+collections:
+  - name: metadata
+    label: Site metadata
+    files:
+      - name: metadata
+        label: Site metadata
+        file: _data/metadata.json
+        fields:
+          - widget: string
+            name: title
+            label: Title
+            required: false
+          - widget: string
+            name: url
+            label: Absolute site URL
+            required: false
+          - widget: string
+            name: description
+            label: Description
+            required: false
+          - widget: object
+            name: feed
+            label: RSS feed details
+            required: false
+            fields:
+              - widget: string
+                name: subtitle
+                label: Sub-title
+                required: false
+              - widget: hidden
+                name: filename
+                label: File name
+                required: false
+              - widget: hidden
+                name: path
+                label: Path
+                required: false
+              - widget: string
+                name: id
+                label: Feed ID
+                required: false
+          - widget: object
+            name: author
+            label: Author
+            required: false
+            fields:
+              - widget: string
+                name: name
+                label: Name
+                required: false
+              - widget: string
+                name: email
+                label: Email
+                required: false
+  - name: page
+    label: Pages
+    folder: /
+    create: true
+    extension: md
+    slug: '{{slug}}'
+    fields:
+      - widget: string
+        name: title
+        label: Title
+        required: true
+      - widget: string
+        name: description
+        label: Description
+        required: false
+      - widget: string
+        name: navtitle
+        label: Navigation item title
+        required: false
+      - widget: list
+        name: tags
+        label: Tags
+        required: false
+        hint: Add the 'nav' tag to add to the top level site navigation
+        field:
+          label: String
+          name: string
+          widget: string
+      - widget: hidden
+        name: templateClass
+        label: Body class
+        required: true
+        default: tmpl-post
+      - widget: string
+        name: permalink
+        label: Permalink
+        required: false
+        hint: URL of the page
+      - widget: boolean
+        name: eleventyExcludeFromCollections
+        label: Exclude content from collections
+        required: false
+        default: false
+      - widget: hidden
+        name: layout
+        label: Layout
+        required: true
+        default: layouts/post.njk
+      - widget: markdown
+        name: body
+        label: Content
+        required: false
+        hint: Page content
+    filter:
+      field: layout
+      value: layouts/post.njk
+  - name: post
+    label: Posts
+    folder: posts
+    create: true
+    extension: md
+    slug: '{{slug}}'
+    fields:
+      - widget: string
+        name: title
+        label: Title
+        required: true
+      - widget: date
+        name: date
+        label: Date
+        required: true
+      - widget: string
+        name: description
+        label: Description
+        required: false
+      - widget: list
+        name: tags
+        label: Tags
+        required: false
+        field:
+          label: String
+          name: string
+          widget: string
+      - widget: string
+        name: permalink
+        label: Permalink
+        required: false
+        hint: URL of the page
+      - widget: boolean
+        name: eleventyExcludeFromCollections
+        label: Exclude content from collections
+        required: false
+        default: false
+      - widget: hidden
+        name: layout
+        label: Layout
+        required: true
+        default: layouts/post.njk
+      - widget: markdown
+        name: body
+        label: Content
+        required: false
+        hint: Page content
+    filter:
+      field: layout
+      value: layouts/post.njk
+  - name: not_found
+    label: 404 page
+    files:
+      - name: not_found
+        label: 404 page
+        file: 404.md
+        fields:
+          - widget: hidden
+            name: permalink
+            label: Permalink
+            required: true
+            hint: URL of the page
+            default: 404.html
+          - widget: hidden
+            name: eleventyExcludeFromCollections
+            label: Exclude content from collections
+            required: false
+            default: true
+          - widget: hidden
+            name: layout
+            label: Layout
+            required: true
+            default: layouts/home.njk
+          - widget: markdown
+            name: body
+            label: Content
+            required: false
+            hint: Page content
